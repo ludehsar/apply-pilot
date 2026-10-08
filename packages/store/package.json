@@ -1,0 +1,25 @@
+{
+  "name": "@workspace/store",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/create-store.ts"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "^2",
+    "redux-saga": "^1"
+  },
+  "devDependencies": {
+    "@reduxjs/toolkit": "^2.13.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "^10",
+    "redux-saga": "^1.5.1",
+    "typescript": "^5"
+  }
+}
