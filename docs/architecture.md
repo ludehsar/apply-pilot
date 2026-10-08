@@ -1,5 +1,7 @@
 # Architecture
 
+This page covers the monorepo layout. The product and runtime architecture (Kafka, PgBouncer, pgvector, Rig, the extension apply flow) is in [system-design.md](./system-design.md).
+
 ```
 apps/web ─────────────┐
 apps/admin ───────────┼──► packages/ui

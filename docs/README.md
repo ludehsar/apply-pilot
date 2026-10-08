@@ -4,8 +4,9 @@ Read the doc for the area you are changing **before** writing code.
 
 | Doc | Read when you are… |
 | --- | --- |
+| [system-design.md](./system-design.md) | Building any product feature: requirements, data flow, Kafka topics, AI layer, data model |
 | [architecture.md](./architecture.md) | Unsure where code belongs, or adding an app/package |
-| [coding-standards.md](./coding-standards.md) | Writing any code (SOLID, DRY, naming, no comments) |
+| [coding-standards.md](./coding-standards.md) | Writing any code (comments policy, SOLID, DRY, project structure, migrations, no raw SQL) |
 | [backend.md](./backend.md) | Touching `apps/api` (Axum, Diesel, OpenAPI) |
 | [frontend.md](./frontend.md) | Touching `apps/web`, `apps/admin`, `apps/extension`, `packages/ui` |
 | [state-management.md](./state-management.md) | Adding Redux state or sagas |
