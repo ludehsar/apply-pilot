@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
+import { ClerkProvider } from "@clerk/nextjs"
 import { Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@workspace/ui/components/theme-provider"
+import { clerkTheme } from "@workspace/ui/lib/clerk"
 import { cn } from "@workspace/ui/lib/utils"
 
 import "@workspace/ui/globals.css"
@@ -27,7 +29,9 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ClerkProvider appearance={{ theme: clerkTheme }}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   )

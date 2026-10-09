@@ -537,7 +537,7 @@ All routes are relative to `/api/v1` and documented with `utoipa` at `/docs`.
 
 ## 11. Cross-cutting concerns
 
-- **Auth.** _Open decision:_ the auth provider/approach. Whatever is chosen, the web app holds a session, and the extension obtains its own short-lived token through the web app (via `externally_connectable`), which the background worker stores in `chrome.storage.session`.
+- **Auth.** Clerk. The web app holds the session (`@clerk/nextjs`). The extension reuses it through Clerk's Sync Host (`@clerk/chrome-extension`), so there's no separate sign-in in the extension. The background worker will get short-lived tokens from `@clerk/chrome-extension/background`. The API will verify Clerk JWTs against the instance JWKS (not built yet).
 - **Privacy.** A profile is sensitive PII. Encrypt it in transit and at rest; never log it; offer full export and hard delete (deletes cascade to embeddings and resume versions); document which data each LLM call sends.
 - **Observability.** `tracing` + OpenTelemetry. Trace context is propagated through the Kafka envelope. Key metrics: consumer lag per group, DLQ depth, ingestion success rate per source, LLM latency/tokens/cost per purpose, and autofill success rate per ATS adapter.
 - **Rate limiting.** Per job source (adapter-declared), per LLM provider, and per user for AI endpoints.
@@ -568,7 +568,7 @@ None of this exists yet. Each change lands with the phase that needs it.
 
 ## 14. Open decisions (summary)
 
-1. Auth approach and provider.
+1. ~~Auth approach and provider.~~ Clerk (see §11).
 2. Embedding model and vector dimension.
 3. LLM provider/models per purpose (generation vs. extraction).
 4. PDF renderer (Typst vs. headless Chrome).

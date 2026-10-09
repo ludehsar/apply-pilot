@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.9.11",
     "@workspace/ui": "workspace:*",
     "next": "16.3.6",
     "react": "19.3.0",

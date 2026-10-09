@@ -4,7 +4,15 @@ Manifest V3 extension built with Vite and [CRXJS](https://crxjs.dev). It uses th
 
 - The manifest is defined in `vite.config.ts` with `defineManifest`; `version` comes from `package.json`.
 - `action.default_popup` → `index.html` → `src/main.tsx` → `src/popup.tsx`. The popup is fixed at `w-[360px]`.
-- It requests no permissions yet. Add them only for a concrete feature: `activeTab` to read the current tab on click, and `host_permissions: ["http://localhost:8080/*"]` before calling the API. Host permissions also exempt extension pages from CORS.
+- It requests `cookies` and `storage`, with host permissions for the sync host and Clerk's Frontend API, all for auth (below). Add more only for a concrete feature: `activeTab` to read the current tab on click, and `http://localhost:8080/*` before calling the API. Host permissions also exempt extension pages from CORS.
+
+## Auth
+
+Clerk (`@clerk/chrome-extension`) with **Sync Host**: the user signs in on `apps/web`, and the extension reads that Clerk session through the `cookies` permission. The popup has no sign-in form of its own; when signed out it links to the web app's `/sign-in`.
+
+- Clerk only accepts requests from `chrome-extension://<id>` origins listed in the instance's `allowed_origins`. The ID comes from the manifest `key` (`CRX_PUBLIC_KEY`), so keep the key fixed. To register a new ID: `clerk api /instance -X PATCH -d '{"allowed_origins":["chrome-extension://<id>"]}'`. This replaces the whole list, so include any existing origins.
+- For production, use the Chrome Web Store item's public key (Developer Dashboard → Package → View public key), set `VITE_CLERK_SYNC_HOST` to the production Clerk Frontend API, and register the store ID.
+- `vite.config.ts` derives the Clerk Frontend API host from the publishable key, so it isn't a separate env var.
 
 ## Develop
 

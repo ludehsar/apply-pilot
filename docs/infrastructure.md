@@ -24,7 +24,15 @@
 | `CORS_ORIGINS` | `http://localhost:3000,http://localhost:5173` |
 | `RUST_LOG` | `api=debug,tower_http=info` |
 
-The frontends don't use env vars yet. When you add one, put it in that app's `.env.example` (Vite apps need the `VITE_` prefix) and list it in `turbo.json` `tasks.build.env` if it affects build output.
+Frontend env vars live in each app's `.env.local`, templated by its `.env.example` (Vite apps need the `VITE_` prefix). List any new one in `turbo.json` `tasks.build.env` if it affects build output.
+
+| App | Var | Notes |
+| --- | --- | --- |
+| web | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` | `clerk env pull` writes them (run inside `apps/web`) |
+| extension | `VITE_CLERK_PUBLISHABLE_KEY` | Same publishable key as the web app; never put the secret key here |
+| extension | `VITE_CLERK_SYNC_HOST` | `http://localhost` in dev (no port): the host whose Clerk session the extension reuses |
+| extension | `VITE_WEB_URL` | `http://localhost:3000`; the popup's "Sign in" link opens it |
+| extension | `CRX_PUBLIC_KEY` | Manifest `key`; pins the extension ID. See [chrome-extension.md](./chrome-extension.md#auth) |
 
 ## Docker image
 
